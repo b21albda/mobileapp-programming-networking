@@ -1,15 +1,15 @@
 package com.example.networking;
 
 public class Mountain {
-    private String ID;
+    private String id;
     private String name;
     private String location;
     private int size;
     private int cost;
     private Auxdata auxdata;
 
-    public Mountain(String ID, String name, String location, int size, int cost, Auxdata auxdata) {
-        this.ID = ID;
+    public Mountain(String id, String name, String location, int size, int cost, Auxdata auxdata) {
+        this.id = id;
         this.name = name;
         this.location = location;
         this.size = size;
@@ -17,8 +17,8 @@ public class Mountain {
         this.auxdata = auxdata;
     }
 
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
     public String getName() {
@@ -35,5 +35,9 @@ public class Mountain {
 
     public int getCost() {
         return cost;
+    }
+
+    public Auxdata getAuxdata() {
+        return auxdata;
     }
 }
