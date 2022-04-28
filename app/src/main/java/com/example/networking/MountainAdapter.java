@@ -39,7 +39,9 @@ public class MountainAdapter extends RecyclerView.Adapter<MountainAdapter.ViewHo
         holder.tv_cost.setText("Cost: " + mountain.getCost());
         holder.tv_wiki.setText(mountain.getAuxdata().getWiki());
 
-        Picasso.get().load(mountain.getAuxdata().getImg()).into(holder.iv_img);
+        String url = mountain.getAuxdata().getImg();
+        if (!url.isEmpty())
+            Picasso.get().load(url).into(holder.iv_img);
     }
 
     @Override
