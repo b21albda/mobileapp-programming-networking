@@ -1,7 +1,5 @@
 package com.example.networking;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +9,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.InputStream;
-import java.net.URL;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class MountainAdapter extends RecyclerView.Adapter<MountainAdapter.ViewHolder> {
+
     private List<Mountain> mountains;
 
     public MountainAdapter(List<Mountain> mountains) { this.mountains = mountains; }
+
+    public void setMountains(List<Mountain> mountains) {
+        this.mountains = mountains;
+    }
 
     @NonNull
     @Override
@@ -32,29 +35,23 @@ public class MountainAdapter extends RecyclerView.Adapter<MountainAdapter.ViewHo
         Mountain mountain = mountains.get(position);
         holder.tv_name.setText(mountain.getName());
         holder.tv_location.setText(mountain.getLocation());
-        holder.tv_size.setText(mountain.getSize());
-        holder.tv_cost.setText(mountain.getCost());
+        holder.tv_size.setText("Size: " + mountain.getSize());
+        holder.tv_cost.setText("Cost: " + mountain.getCost());
         holder.tv_wiki.setText(mountain.getAuxdata().getWiki());
-        try {
-            InputStream in = (InputStream) new URL(mountain.getAuxdata().getImg()).getContent();
-            Bitmap bitmap = BitmapFactory.decodeStream(in);
-            holder.iv_img.setImageBitmap(bitmap);
-            in.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        Picasso.get().load(mountain.getAuxdata().getImg()).into(holder.iv_img);
     }
 
     @Override
     public int getItemCount() { return mountains.size(); }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_name;
-        private TextView tv_location;
-        private TextView tv_size;
-        private TextView tv_cost;
-        private TextView tv_wiki;
-        private ImageView iv_img;
+        private final TextView tv_name;
+        private final TextView tv_location;
+        private final TextView tv_size;
+        private final TextView tv_cost;
+        private final TextView tv_wiki;
+        private final ImageView iv_img;
 
 
         public ViewHolder(@NonNull View itemView) {
